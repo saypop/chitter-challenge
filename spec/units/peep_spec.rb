@@ -1,5 +1,6 @@
 require 'peep'
 require 'database_helpers'
+require 'test_helpers'
 
 describe Peep do
   describe '.create' do
@@ -14,5 +15,20 @@ describe Peep do
       expect(peep.timestamp).to be_kind_of(Time)
 
     end
+  end
+
+  describe '.all' do
+
+    it 'returns a chronological array off all peeps' do
+      peep_t0 = Peep.create(post: "dis a peep")
+      wait_for_1_second
+      peep_t2 = Peep.create(post: "dis a peep 2 secs later")
+      wait_for_1_second
+      peep_t4 = Peep.create(post: "dis a peep 4 secs later")
+      expect(Peep.all[0].post).to eq(peep_t4.post)
+      expect(Peep.all[1].post).to eq(peep_t2.post)
+      expect(Peep.all[2].post).to eq(peep_t0.post)
+    end
+
   end
 end

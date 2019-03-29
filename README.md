@@ -7,7 +7,7 @@
 2. Create the database using the psql command CREATE DATABASE chitter;
 3. Connect to the database using the pqsl command \c bookmark_manager;
 4. Run the query we have saved in the file 01_create_peeps_table.sql
-5. Create the database using the psql command CREATE DATABASE chitter_test;
+5. Create the test database using the psql command CREATE DATABASE chitter_test;
 6. Repeat steps 3 to ...
 
 ### Usage:
@@ -21,7 +21,7 @@ Our week 4 challenge at Makers Academy was to write a Twitter clone. Features of
 2. User creation with an email, password, name and username.
 3. Usernames and emails need to be unique (i.e. a user cannot sign up twice with the same email address and two users can't share a user name).
 4. Peeps need to have the username and name of the user displayed with them.
-5. A README with a list of all tech used and instrcutions for usage and testing.
+5. A README with a list of all tech used and instructions for usage and testing.
 
 ### User Stories:
 
@@ -43,3 +43,11 @@ Here is a domain model for this user story:
 ![alt text](images/chitter_domain_model.png)
 
 Before I tackled the second user story which I set up the testing environment to make executing over connections easier. This included test driving the development of a connection class and a peep class.
+
+#### User Story 2
+```
+  As a maker
+  So that I can see what others are saying
+  I want to see all peeps in reverse chronological order
+```
+To satisfy this user story I am going to have test drive the development of .all method for the Peep class which should return an array of Peep instances and a time since posting in seconds so they can be sorted. First I'll test drive the simplest solution using an hardcoded array in the app then move on to the unit test for the all method. Once this is done I will create a time_helper that sleeps the program for a given time to ensure time differences between entries.
