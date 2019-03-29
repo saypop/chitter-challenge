@@ -9,17 +9,11 @@ class Chitter < Sinatra::Base
   end
 
   get '/chitter' do
-    p 'get'
-    @peeps = [
-      {:post => 'This should be at the bottom', :post_age => 3},
-      {:post => 'This should be in the middle', :post_age => 2},
-      {:post => 'This should be at the top', :post_age => 1}
-    ].sort { |a, b| a[:post_age] <=> b[:post_age]}
+    @peeps = Peep.all
     erb :'chitter/index'
   end
 
   post '/chitter' do
-    p 'put'
     erb :'chitter/index'
   end
 
