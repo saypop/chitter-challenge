@@ -11,7 +11,7 @@ class DatabaseConnection
   end
 
   def self.query(sql)
-    @connection.exec("SELECT * FROM peeps")
+    @connection.exec(sql)
   end
 
 end
