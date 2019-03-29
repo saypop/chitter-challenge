@@ -40,6 +40,6 @@ id  |peep   |user_id   |timestamp
 I will also set a character limit, so that peeps don't get to long and bore users.
 
 Here is a domain model for this user story:
-![alt text](images/DM_User_Story_1.png)
+![alt text](images/chitter_domain_model.png)
 
 Before I tackled the second user story which I set up the testing environment to make executing over connections easier. This included test driving the development of a connection class and a peep class.
