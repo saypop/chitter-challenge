@@ -1,133 +1,94 @@
-Chitter Challenge
-=================
+# Chitter Challenge
 
-* Challenge time: rest of the day and weekend, until Monday 9am
-* Feel free to use Google, your notes, books, etc. but work on your own
-* If you refer to the solution of another coach or student, please put a link to that in your README
-* If you have a partial solution, **still check in a partial solution**
-* You must submit a pull request to this repo with your code by 9am Monday morning
+## Instructions:
+### Installation:
+#### Database:
+1. Connect to psql
+2. Create the database using the psql command CREATE DATABASE chitter;
+3. Connect to the database using the pqsl command \c bookmark_manager;
+4. Run the query we have saved in the file 01_create_peeps_table.sql
+5. Create the database using the psql command CREATE DATABASE chitter_test;
+6. Repeat steps 3 to ...
 
-Challenge:
--------
+### Usage:
 
-As usual please start by forking this repo.
+### Testing:
 
-We are going to write a small Twitter clone that will allow the users to post messages to a public stream.
+## Challenge:
 
-Features:
--------
+Our week 4 challenge at Makers Academy was to write a Twitter clone. Features of this clone needed to include:
+1. Being able to view all peeps (even when not logged in).
+2. User creation with an email, password, name and username.
+3. Usernames and emails need to be unique (i.e. a user cannot sign up twice with the same email address and two users can't share a user name).
+4. Peeps need to have the username and name of the user displayed with them.
+5. A README with a list of all tech used and instrcutions for usage and testing.
 
+### User Stories:
+
+#### User Story 1
 ```
-STRAIGHT UP
-
-As a Maker
-So that I can let people know what I am doing  
-I want to post a message (peep) to chitter
-
-As a maker
-So that I can see what others are saying  
-I want to see all peeps in reverse chronological order
-
-As a Maker
-So that I can better appreciate the context of a peep
-I want to see the time at which it was made
-
-As a Maker
-So that I can post messages on Chitter as me
-I want to sign up for Chitter
-
-HARDER
-
-As a Maker
-So that only I can post messages on Chitter as me
-I want to log in to Chitter
-
-As a Maker
-So that I can avoid others posting messages on Chitter as me
-I want to log out of Chitter
-
-ADVANCED
-
-As a Maker
-So that I can stay constantly tapped in to the shouty box of Chitter
-I want to receive an email if I am tagged in a Peep
+  As a Maker
+  So that I can let people know what I am doing
+  I want to post a message (peep) to chitter
 ```
+To satisfy this user story I am going to create a database called Chitter with a table called Peeps. Bearing in mind that I will need to have the username and name of the author displayed on the peep, I will include a field for user id in the table. Also because I will need to order peeps by time, I will include a timestamp too. So:
+id  |peep   |user_id   |timestamp
+--|---|--|--
+1  |"The first ever peep"   |1   |2019/03/29 10:00
+2  |"What is this?"   |2   |2019/03/29 10:01
+3  |"It's Chitter!"   |1   |2019/03/29 10:03
+I will also set a character limit, so that peeps don't get to long and bore users.
 
-Technical Approach:
------
+Here is a domain model for this user story:
+![alt text](images/DM_User_Story_1.png)
 
-This week you integrated a database into Bookmark Manager using the `PG` gem and `SQL` queries. You can continue to use this approach when building Chitter Challenge.
-
-If you'd like more technical challenge this weekend, try using an [Object Relational Mapper](https://en.wikipedia.org/wiki/Object-relational_mapping) as the database interface.
-
-Some useful resources:
-**DataMapper**
-- [DataMapper ORM](https://datamapper.org/)
-- [Sinatra, PostgreSQL & DataMapper recipe](http://recipes.sinatrarb.com/p/databases/postgresql-datamapper)
-
-**ActiveRecord**
-- [ActiveRecord ORM](https://guides.rubyonrails.org/active_record_basics.html)
-- [Sinatra, PostgreSQL & ActiveRecord recipe](http://recipes.sinatrarb.com/p/databases/postgresql-activerecord?#article)
-
-Notes on functionality:
-------
-
-* You don't have to be logged in to see the peeps.
-* Makers sign up to chitter with their email, password, name and a username (e.g. samm@makersacademy.com, password123, Sam Morgan, sjmog).
-* The username and email are unique.
-* Peeps (posts to chitter) have the name of the maker and their user handle.
-* Your README should indicate the technologies used, and give instructions on how to install and run the tests.
-
-Bonus:
------
-
-If you have time you can implement the following:
-
-* In order to start a conversation as a maker I want to reply to a peep from another maker.
-
-And/Or:
-
-* Work on the CSS to make it look good.
-
-Good luck and let the chitter begin!
-
-Code Review
------------
-
-In code review we'll be hoping to see:
-
-* All tests passing
-* High [Test coverage](https://github.com/makersacademy/course/blob/master/pills/test_coverage.md) (>95% is good)
-* The code is elegant: every class has a clear responsibility, methods are short etc.
-
-Reviewers will potentially be using this [code review rubric](docs/review.md).  Referring to this rubric in advance may make the challenge somewhat easier.  You should be the judge of how much challenge you want this weekend.
-
-Automated Tests:
------
-
-Opening a pull request against this repository will will trigger Travis CI to perform a build of your application and run your full suite of RSpec tests. If any of your tests rely on a connection with your database - and they should - this is likely to cause a problem. The build of your application created by has no connection to the local database you will have created on your machine, so when your tests try to interact with it they'll be unable to do so and will fail.
-
-If you want a green tick against your pull request you'll need to configure Travis' build process by adding the necessary steps for creating your database to the `.travis.yml` file.
-
-- [Travis Basics](https://docs.travis-ci.com/user/tutorial/)
-- [Travis - Setting up Databases](https://docs.travis-ci.com/user/database-setup/)
-
-Notes on test coverage
-----------------------
-
-Please ensure you have the following **AT THE TOP** of your spec_helper.rb in order to have test coverage stats generated
-on your pull request:
-
-```ruby
-require 'simplecov'
-require 'simplecov-console'
-
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-  SimpleCov::Formatter::Console,
-  # Want a nice code coverage website? Uncomment this next line!
-  # SimpleCov::Formatter::HTMLFormatter
-])
-SimpleCov.start
+Before I tackled the second user story which I set up the testing environment to make executing over connections easier. Below is a short guide to setting this up:
+1.  Create a file called setup_test_database.rb in the spec folder.
+2.  Insert the following code:
 ```
+  require 'pg'
 
-You can see your test coverage when you run your tests. If you want this in a graphical form, uncomment the `HTMLFormatter` line and see what happens!
+  def setup_test_database
+    p "Setting up test database..."
+    connection = PG.connect(dbname: 'chitter_test')
+    connection.exec("TRUNCATE peeps;")
+  end
+```
+3.  Insert the following code at the top of spec_helper.rb
+```
+  require_relative './setup_test_database'
+  ENV['ENVIRONMENT'] = 'test'
+  RSpec.configure do |config|
+    config.before(:each) do
+      setup_test_database
+    end
+  end
+```
+4.  Create a file called database_connection.rb in the lib folder.
+5.  Insert the following code:
+```
+  require 'pg'
+  class DatabaseConnection
+    def self.setup(dbname:)
+      @connection = PG.connect(dbname)
+    end
+    def self.connection
+      @connection
+    end
+    def self.query(sql_query)
+      @connection.exec(sql_query)
+    end
+  end
+```
+6.  Create a file called database_connection_setup.rb in the root.
+7.  Insert this code:
+```
+  require './lib/database_connection'
+
+  if ENV['ENVIRONMENT'] == 'test'
+    DatabaseConnection.setup(dbname: 'chitter_test')
+  else
+    DatabaseConnection.setup(dbname: 'chitter')
+  end
+```
+8.  Insert `require './database_connection_setup'` at the top of the app file.
