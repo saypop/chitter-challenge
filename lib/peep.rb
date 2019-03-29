@@ -1,16 +1,16 @@
 class Peep
 
-  attr_reader :id, :peep, :timestamp
+  attr_reader :id, :post, :timestamp
 
-  def initialize(id: id, peep: peep, timestamp: timestamp)
+  def initialize(id: id, post: post, timestamp: timestamp)
     @id = id
-    @peep = peep
+    @post = post
     @timestamp = timestamp
   end
 
-  def self.create(peep: peep)
-    result = DatabaseConnection.query("INSERT INTO peeps (peep) VALUES('#{peep}') RETURNING id, peep, timestamp")
-    Peep.new(id: result[0]['id'], peep: result[0]['peep'], timestamp: Time.parse(result[0]['timestamp']))
+  def self.create(post: post)
+    result = DatabaseConnection.query("INSERT INTO peeps (post) VALUES('#{post}') RETURNING id, post, timestamp")
+    Peep.new(id: result[0]['id'], post: result[0]['post'], timestamp: Time.parse(result[0]['timestamp']))
   end
 
 end

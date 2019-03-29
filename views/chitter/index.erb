@@ -1,6 +1,12 @@
 <form class="" action="/chitter" method="post">
-  <input type="text" name="peep" value="">
+  <input type="text" name="post" value="">
   <input type="submit" name="" value="submit">
 </form>
 
-<%= @peep %>
+<ul>
+  <% @peeps.each do |peep| %>
+    <li class="peep" id="peep">
+        <%= peep[:post] %> - posted <%= peep[:post_age] %> seconds ago
+    </li>
+  <% end %>
+</ul>
