@@ -6,7 +6,7 @@
 <ul>
   <% @peeps.each do |peep| %>
     <li class="peep" id="peep">
-        <%= peep.post %> - posted <%= Time.now - Time.parse(peep.timestamp) %> seconds ago
+        <%= peep.post %> - posted <%= LapsedTime.calculate(peep) %>
     </li>
   <% end %>
 </ul>

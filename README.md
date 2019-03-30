@@ -50,4 +50,19 @@ Before I tackled the second user story which I set up the testing environment to
   So that I can see what others are saying
   I want to see all peeps in reverse chronological order
 ```
-To satisfy this user story I am going to have test drive the development of .all method for the Peep class which should return an array of Peep instances and a time since posting in seconds so they can be sorted. First I'll test drive the simplest solution using an hardcoded array in the app then move on to the unit test for the all method. Once this is done I will create a time_helper that sleeps the program for a given time to ensure time differences between entries.
+To satisfy this user story I am going to have test drive the development of .all method for the Peep class which should return an array of Peep instances and a timestamp. First I'll test drive the simplest solution using an hardcoded array in the app then move on to the unit test for the all method. Once this is done I will create a time_helper that sleeps the program for a given time to ensure time differences between entries.
+
+#### User Story 3
+```
+  As a Maker
+  So that I can better appreciate the context of a peep
+  I want to see the time at which it was made
+```
+This user story is already satisfied but the time is shown as a timestamp. I am going to change so time as a time since posting with the following rules:
+ - if the time since posting is less than a minute the time difference will be shown in seconds;
+ - if the time since posting is less than an hour the time difference will be shown in minutes;
+ - if the time since posting is less than a day the time difference will be shown in hours;
+ - if the time since posting is less than a month the time difference will be shown in days;
+ - if the time since posting is less than a year the time difference will be shown in months;
+ - otherwise the time difference will be shown in years.
+To do this I will need to test drive the development of a lapsed_time method. To feature test the result I will need to learn how to use Timecop.

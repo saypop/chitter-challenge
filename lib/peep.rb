@@ -8,9 +8,13 @@ class Peep
     @timestamp = timestamp
   end
 
-  def self.create(post:)
+  # def timestamp
+  #   DatabaseConnection.query("SELECT * FROM peeps WHERE id = #{Self.id}")
+  # end
+
+  def self.create(post:, timestamp: Time.now)
     result = DatabaseConnection.query(
-      "INSERT INTO peeps (post) VALUES('#{post}') RETURNING id, post, timestamp"
+      "INSERT INTO peeps (post, timestamp) VALUES('#{post}', '#{timestamp}') RETURNING id, post, timestamp"
     )
     Peep.new(
       id: result[0]['id'],
@@ -21,7 +25,7 @@ class Peep
   def self.all
     result = DatabaseConnection.query('SELECT * FROM peeps')
     list = result.map do |peep|
-      Peep.new(id: peep['id'], post: peep['post'], timestamp: peep['timestamp'])
+      Peep.new(id: peep['id'], post: peep['post'], timestamp: Time.parse(peep['timestamp']))
     end
     list.sort! { |a, b| b.timestamp <=> a.timestamp }
   end

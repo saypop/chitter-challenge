@@ -13,4 +13,5 @@ group :test do
   gem 'orderly'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
+  gem 'timecop', '~> 0.8.1'
 end

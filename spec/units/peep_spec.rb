@@ -20,10 +20,12 @@ describe Peep do
   describe '.all' do
 
     it 'returns a chronological array off all peeps' do
+      Timecop.freeze(Time.now - 30)
       peep_t0 = Peep.create(post: "dis a peep")
-      wait_for_1_second
+      Timecop.return
+      Timecop.freeze(Time.now - 15)
       peep_t2 = Peep.create(post: "dis a peep 2 secs later")
-      wait_for_1_second
+      Timecop.return
       peep_t4 = Peep.create(post: "dis a peep 4 secs later")
       expect(Peep.all[0].post).to eq(peep_t4.post)
       expect(Peep.all[1].post).to eq(peep_t2.post)
@@ -31,4 +33,5 @@ describe Peep do
     end
 
   end
+
 end

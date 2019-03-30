@@ -15,6 +15,7 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 require 'orderly'
+require 'timecop'
 
 # Tell Capybara to talk to BookmarkManager
 Capybara.app = Chitter
