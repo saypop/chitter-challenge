@@ -7,7 +7,7 @@ describe Peep do
 
     it 'generates and stores a new peep' do
       peep = Peep.create(post: "dis a peep")
-      entry_in_database = entry_in_database(id: peep.id)
+      entry_in_database = entry_in_database(id: peep.id, table: "peeps")
 
       expect(peep).to be_a Peep
       expect(peep.id).to eq(entry_in_database.first['id'])

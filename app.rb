@@ -11,15 +11,35 @@ class Chitter < Sinatra::Base
     redirect '/chitter'
   end
 
+  post '/chitter' do
+    Peep.create(post: params[:post])
+    redirect '/chitter'
+  end
+
   get '/chitter' do
     @peeps = Peep.all
-    # p @peeps[0]
-    # p LapsedTime.calculate(@peeps[0])
     erb :'chitter/index'
   end
 
-  post '/chitter' do
-    erb :'chitter/index'
+  get '/chitter/register' do
+    erb :'chitter/registration/start'
+  end
+
+  post '/chitter/register' do
+    @user = {:name => 'John', :surname => 'Doe', :handle => 'TheRealJohnDoe'}
+    erb :'chitter/registration/success'
+  end
+
+  post '/chitter/:handle' do
+    Peep.create(post: params[:post])
+    path = "/chitter/#{params[:handle]}"
+    redirect path
+  end
+
+  get '/chitter/:handle' do
+    @user = {:name => 'John', :surname => 'Doe', :handle => 'TheRealJohnDoe'}
+    @peeps = Peep.all
+    erb :"chitter/signed_in"
   end
 
   run! if app_file == $0

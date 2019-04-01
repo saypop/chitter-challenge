@@ -1,0 +1,14 @@
+Hi <%= @user[:name] %> <%= @user[:surname] %>! You are signed in and peeping as <%= @user[:handle] %>.
+
+<form class="" action="/chitter/<%= @user[:handle] %>" method="post">
+  <input type="text" name="post" value="">
+  <input type="submit" name="" value="submit">
+</form>
+
+<ul>
+  <% @peeps.each do |peep| %>
+    <li class="peep" id="peep">
+        <%= peep.post %> - posted <%= LapsedTime.calculate(peep) %> by <%= @user[:handle] %>
+    </li>
+  <% end %>
+</ul>

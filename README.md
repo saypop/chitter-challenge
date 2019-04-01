@@ -6,13 +6,14 @@
 1. Connect to psql
 2. Create the database using the psql command CREATE DATABASE chitter;
 3. Connect to the database using the pqsl command \c bookmark_manager;
-4. Run the query we have saved in the file 01_create_peeps_table.sql
+4. Run the query saved in the file 01_create_peeps_table.sql
+5. Run the query saved in the file 02_create_users_table.sql
 5. Create the test database using the psql command CREATE DATABASE chitter_test;
 6. Repeat steps 3 to ...
 
-### Usage:
+#### Usage:
 
-### Testing:
+#### Testing:
 
 ## Challenge:
 
@@ -65,4 +66,14 @@ This user story is already satisfied but the time is shown as a timestamp. I am 
  - if the time since posting is less than a month the time difference will be shown in days;
  - if the time since posting is less than a year the time difference will be shown in months;
  - otherwise the time difference will be shown in years.
-To do this I will need to test drive the development of a lapsed_time method. To feature test the result I will need to learn how to use Timecop.
+To do this I will need to test drive the development of a lapsed_time method. To feature test the result I will need to learn how to use Timecop. I ended up extracting this into a new class.
+
+#### User Story 4
+```
+  As a Maker
+  So that I can post messages on Chitter as me
+  I want to sign up for Chitter
+```
+To satisfy this story I will need to create a page that asks the user to sign in and when they are signed in any peep they post should have their username and name on it. **This is as far as I got.**
+
+Next steps would be: Once I solve this in the simplest way, I will need to create a user class and data table and change the peep class so that it initializes with an instance of the user class injected into it.
