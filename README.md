@@ -12,8 +12,16 @@
 6. Repeat steps 3 to ...
 
 #### Usage:
+1. `git clone https://github.com/saypop/chitter-challenge.git`
+2. `cd chitter-challenge`
+3. `bundle`
+4. `rackup`
+5. Visit [localhost:9292](localhost:9292)
+6. Write a peep and submit.
+7. Note: registration flow is hardcoded so will always create a profile for 'John Doe'.
 
 #### Testing:
+`rspec`
 
 ## Challenge:
 
